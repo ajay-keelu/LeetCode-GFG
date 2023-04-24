@@ -1,6 +1,6 @@
 # Equilibrium Point
 ## Easy
-<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array A of n&nbsp;positive numbers. The task is to find the first Equilibium Point in the array.&nbsp;<br>
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array A of n&nbsp;positive numbers. The task is to find the first Equilibrium Point in an array.&nbsp;<br>
 Equilibrium Point in an array is a position such that the sum of elements before it is equal to the sum of elements after it.</span></p>
 
 <p><strong><span style="font-size:18px">Note: Retun the index of Equilibrium point. (1-based index)</span></strong></p>
