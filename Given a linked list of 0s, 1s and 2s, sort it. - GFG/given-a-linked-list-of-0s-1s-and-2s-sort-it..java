@@ -18,28 +18,31 @@ class Node
 
 class Driverclass
 {
-    public static void main (String[] args) 
+    public static void main (String[] args) throws IOException
     {
-        Scanner sc= new Scanner(System.in);
-        int t = sc.nextInt();
+        BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out=new PrintWriter(System.out);
+        int t = Integer.parseInt(in.readLine().trim());
         
         while(t-- > 0)
         {
-            int n = sc.nextInt();
-            Node head = new Node(sc.nextInt());
+            int n =Integer.parseInt(in.readLine().trim());
+            String s[] = in.readLine().trim().split(" ");
+            Node head = new Node(Integer.parseInt(s[0]));
             Node tail = head;
-            while(n-- > 1){
-		        tail.next = new Node(sc.nextInt());
-		        tail = tail.next;
-		    }
-		   
-		      head = new Solution().segregate(head);
-		     printList(head);
-		    System.out.println();
+            for (int i = 1; i < n; i++) {
+                tail.next = new Node(Integer.parseInt(s[i]));
+                tail = tail.next;
+            }
+
+            head = new Solution().segregate(head);
+            printList(head, out);
+            out.println();
         }
+        out.close();
     }
     
-    public static void printList(Node head)
+    public static void printList(Node head,PrintWriter out)
     {
         if(head == null)
            return;
@@ -47,7 +50,7 @@ class Driverclass
         Node temp = head;
         while(temp != null)
         {
-            System.out.print(temp.data + " ");
+            out.print(temp.data + " ");
             temp = temp.next;
         }
     }
@@ -80,52 +83,54 @@ class Solution
     //Function to sort a linked list of 0s, 1s and 2s.
     static Node segregate(Node head)
     {
-        int a=0,b=0,c=0;
-        Node temp = head;
-        while(temp != null)
-        {
-            int k = temp.data;
-            if(k == 0)
-                a++;
-            else if(k==1)
-                b++;
-            else
-                c++;
-            temp = temp.next;
+        // add your code here
+        Node zero = null;
+        Node one = null;
+        Node two = null;
+        Node temp0 = null;
+        Node temp1 = null;
+        Node temp2 = null;
+        while(head != null){
+            if(head.data == 0){
+                if(zero == null)
+                    zero = temp0 = new Node(head.data);
+                else{
+                    temp0.next = new Node(head.data);
+                    temp0 = temp0.next;
+                }
+            }else if(head.data == 1){
+                if(one == null)
+                    one = temp1 = new Node(head.data);
+                else{
+                    temp1.next = new Node(head.data);
+                    temp1 = temp1.next;
+                }
+            }else{
+                if(two == null)
+                    two = temp2 = new Node(head.data);
+                else{
+                    temp2.next = new Node(head.data);
+                    temp2 = temp2.next;
+                }
+            }
+            head = head.next;
         }
-        List<Integer>li = new ArrayList<>();
-        while(true)
-        {
-            if(a==0 && b==0 && c==0)
-                break;
-            if(a!=0)
-            {
-                li.add(0);
-                a--;
-            }
-            else if(b!=0)
-            {
-                li.add(1);
-                b--;
-            }
+        if(zero == null){
+            if(one == null)
+                zero = two;
             else{
-                li.add(2);
-                c--;
+                temp1.next = two;
+                zero = one;
+            }
+        }else{
+            if(one == null){
+                temp0.next = two;
+            }else{
+                temp1.next = two;
+                temp0.next = one;
             }
         }
-        Node root = null;
-         temp = null;
-        for(int i = 0 ; i < li.size() ; i++)
-        {
-            if(i == 0)
-                root = temp = new Node(li.get(i));
-            else
-            {
-                temp.next = new Node(li.get(i));
-                temp = temp.next;
-            }
-        }
-        return root;
+        return zero;
     }
 }
 
