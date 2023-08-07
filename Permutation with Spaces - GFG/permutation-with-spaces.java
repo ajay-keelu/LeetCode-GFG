@@ -44,12 +44,12 @@ class Solution{
     }
     static void prem(ArrayList<String> res,String r,String s,int i,int n){
         if(i == n){
-            if(r.length() <= n*2-1 && r.charAt(r.length() - 1) != ' ')
+            if(r.length() <= n*2-1 )//&& r.charAt(r.length() - 1) != ' ')
                 res.add(r);
             return ;
         }
-        // if(!f)
-        prem(res,r+s.charAt(i)+" ",s,i+1,n);
+        if(i != n-1)
+            prem(res,r+s.charAt(i)+" ",s,i+1,n);
         prem(res,r+s.charAt(i),s,i+1,n);
     }
 }
