@@ -33,26 +33,24 @@ class GFG
 // } Driver Code Ends
 
 
+
+
 //User function Template for Java
 
 class Solution
 {
-    public int[] singleNumber(int[] nums)
-    {
-        // Code here
-        Map<Integer,Integer>mp = new HashMap<>();
+    public int[] singleNumber(int[] nums){
+        int[] res = new int[2];
+        int max = nums[0];
+        for(int i : nums)
+            max = Math.max(max,i);
+        int[] freq = new int[max+1] ;
         for(int i:nums)
-            mp.put(i,mp.getOrDefault(i,0)+1);
-        int c = 0;
-        for(int i:nums)
-            if(mp.get(i) == 1)
-                c++;
-        int res[] = new int[c];
-        c = 0;
-        for(int i:nums)
-            if(mp.get(i) == 1)
-                res[c++] = i;
-        Arrays.sort(res);
+            freq[i]++;
+        int k = 0;
+        for(int i = 0 ; i < freq.length ; i++)
+            if(freq[i] == 1)
+                res[k++]  = i;
         return res;
     }
 }
